@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const {
   PORT,
+  APP_KEY,
   MONGODB_HOST,
   MONGODB_USER,
   MONGODB_PASSWORD,
@@ -16,6 +17,7 @@ const port = PORT || 3000;
 
 module.exports = {
   port,
+  appKey: APP_KEY,
   domains: {
     frontend: FRONTEND_DOMAIN,
     api: APP_DOMAIN,

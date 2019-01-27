@@ -9,4 +9,5 @@ module.exports = {
   lastname: Joi.string().required(),
   companyName: Joi.string().required(),
   companyId: Joi.string().required(),
+  invitationToken: Joi.string().required(),
 };

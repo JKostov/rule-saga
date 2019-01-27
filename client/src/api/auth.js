@@ -2,7 +2,7 @@
 import axios from '.';
 
 export function login(email, password) {
-  return axios.post('/auth/login', {
+  return axios.post('/auth/login-user', {
     email,
     password,
   });

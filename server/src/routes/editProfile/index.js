@@ -1,4 +1,4 @@
-const { Router } = require('express');
+const Router = require('services/modelBindings');
 const omit = require('lodash/omit');
 const { encrypt, hashPassword } = require('services/auth');
 const logger = require('services/logger');
@@ -26,7 +26,7 @@ router.put('/', middleware('auth'), validate(editProfileRequest), async (req, re
       $set: {
         ...update,
       }
-    }, { new: true });
+    }, { new: true, useFindAndModify: false });
 
     if (updatedUser) {
       return res.status(400).send({ message: responses(400) });

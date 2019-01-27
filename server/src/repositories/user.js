@@ -16,9 +16,9 @@ const updatePassword = async (id, newPassword) => User.findByIdAndUpdate(id,
     },
   },
   {
-    new: true,
+    new: true, useFindAndModify: false,
   },
-);
+).lean().exec();
 
 module.exports = {
   updatePassword,

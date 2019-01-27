@@ -13,8 +13,8 @@ class WelcomeMail extends Mail {
     this.renderBody(data);
   }
 
-  renderBody(token) {
-    const route = `${api}/api/auth/confirm/${token}`;
+  renderBody({ token, specificRoute }) {
+    const route = `${api}/api/auth/${specificRoute}/${token}`;
     const message = `Wellcome ${this.getTo()}!\n\n
       Please click on the following link, or paste this into your browser to complete the process:\n\n
       ${route} \n\n`;

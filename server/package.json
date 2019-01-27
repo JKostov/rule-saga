@@ -7,7 +7,7 @@
   "description": "rule-saga api",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon ./src/bin/www",
+    "start": "nodemon ./src/bin/www -wL",
     "seed:up": "node db/seeders up",
     "seed:down": "node db/seeders down"
   },

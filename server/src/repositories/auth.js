@@ -6,8 +6,8 @@ const { PasswordRecovery, User } = require('models');
  * @returns {Promise<{user}>}
  */
 const getPasswordRecoveryWithUser = async token => {
-  const passwordRecovery = await PasswordRecovery.findOne({ token });
-  const user = await User.findById(passwordRecovery.userId);
+  const passwordRecovery = await PasswordRecovery.findOne({ token }).lean().exec();
+  const user = await User.findById(passwordRecovery.userId).lean().exec();
 
   return {
     ...passwordRecovery,

@@ -10,4 +10,4 @@ RUN npm ci
 RUN npm install -g nodemon
 
 EXPOSE 3000
-CMD ["node", "/app/src/bin/www"]
+CMD ["npm", "run", "start"]
