@@ -1,10 +1,12 @@
 const logger = require('services/logger');
 const auth = require('./auth');
 const validate = require('./validate');
+const company = require('./company');
 
 const mapping = {
   auth,
   validate,
+  company,
 };
 
 module.exports = (middleware) => {

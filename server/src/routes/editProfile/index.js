@@ -12,6 +12,7 @@ const router = Router();
 
 router.put('/', middleware('auth'), validate(editProfileRequest), async (req, res) => {
   try {
+
     const {
       user: { id },
     } = req;

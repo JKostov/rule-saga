@@ -43,6 +43,7 @@ const EXPIRATION_TIME = 6;
 
 router.post('/login-user', validate(loginRequest), async (req, res) => {
   try {
+
     const { email, password } = req.body;
 
     const user = await User.findOne({ email }).lean().exec();
@@ -73,6 +74,7 @@ router.post('/login-user', validate(loginRequest), async (req, res) => {
 
 router.post('/login-company', validate(loginRequest), async (req, res) => {
   try {
+
     const { email, password } = req.body;
 
     const company = await Company.findOne({ email }).lean().exec();
@@ -103,6 +105,7 @@ router.post('/login-company', validate(loginRequest), async (req, res) => {
 
 router.post('/register-user', validate(registerUserRequest), async (req, res) => {
   try {
+
     const { password, companyName, companyId, email, invitationToken, ...attributes } = req.body;
 
     const userExists = await User.findOne({ email }).lean().exec();
@@ -133,7 +136,12 @@ router.post('/register-user', validate(registerUserRequest), async (req, res) =>
       $set: {
         status: 'completed',
       }
-    }, { new: true, useFindAndModify: false }).lean().exec();
+    }, {
+      new: true,
+      useFindAndModify: false
+    })
+      .lean()
+      .exec();
 
 
     await user.save();
@@ -158,6 +166,7 @@ router.post('/register-user', validate(registerUserRequest), async (req, res) =>
 
 router.post('/register-company', validate(registerCompanyRequest), async (req, res) => {
   try {
+
     const { password, email, name } = req.body;
 
     const companyExists = await Company.findOne({ email }).lean().exec();
@@ -196,6 +205,7 @@ router.post('/register-company', validate(registerCompanyRequest), async (req, r
 
 router.post('/:companyId/invite-user', validate(inviteUserRequest), async (req, res) => {
   try {
+
     const { email } = req.body;
     const { companyId: id } = req.params;
 
@@ -241,6 +251,7 @@ router.post('/:companyId/invite-user', validate(inviteUserRequest), async (req, 
 
 router.post('/forgot-password', validate(forgotPasswordRequest), async (req, res) => {
   try {
+
     const { email } = req.body;
 
     const user = await User.findOne({ email }).lean().exec();
@@ -273,6 +284,7 @@ router.post('/forgot-password', validate(forgotPasswordRequest), async (req, res
 
 router.post('/verify-token', validate(verifyTokenRequest), async (req, res) => {
   try {
+
     const { token } = req.body;
 
     const passwordRecoveryWithUser = await getPasswordRecoveryWithUser(token);
@@ -299,6 +311,7 @@ router.post('/verify-token', validate(verifyTokenRequest), async (req, res) => {
 
 router.post('/reset-password', validate(resetPasswordRequest), async (req, res) => {
   try {
+
     const { password, token } = req.body;
 
     const passwordRecoveryWithUser = await getPasswordRecoveryWithUser(token);
@@ -327,6 +340,7 @@ router.post('/reset-password', validate(resetPasswordRequest), async (req, res) 
 
 router.get('/confirm-user/:token', async (req, res) => {
   try {
+
     const { token: registerToken } = req.params;
 
     const user = await User.findOne({ registerToken }).lean().exec();
@@ -343,7 +357,12 @@ router.get('/confirm-user/:token', async (req, res) => {
         registerToken: null,
         status: 'active',
       }
-    }, { new: true, useFindAndModify: false }).lean().exec();
+    }, {
+      new: true,
+      useFindAndModify: false
+    })
+      .lean()
+      .exec();
 
     if (!updatedUser) {
       return res.status(400).send({ message: responses(400) });
@@ -360,6 +379,7 @@ router.get('/confirm-user/:token', async (req, res) => {
 
 router.get('/confirm-company/:token', async (req, res) => {
   try {
+
     const { token: registerToken } = req.params;
 
     const company = await Company.findOne({ registerToken }).lean().exec();
@@ -376,7 +396,12 @@ router.get('/confirm-company/:token', async (req, res) => {
         registerToken: null,
         status: 'active',
       }
-    }, { new: true, useFindAndModify: false }).lean().exec();
+    }, {
+      new: true,
+      useFindAndModify: false
+    })
+      .lean()
+      .exec();
 
     if (!updatedCompany) {
       return res.status(400).send({ message: responses(400) });

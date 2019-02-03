@@ -14,6 +14,9 @@ const schema = new mongoose.Schema(
       minlength: 2,
       maxlength: 50,
     },
+    categories: [{
+      type: String,
+    }],
     users: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
