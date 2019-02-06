@@ -22,6 +22,18 @@ const userIds = [
   '569ed8269353e9f4c51617a6',
 ];
 
+const categories = {
+    Frame: [
+        'Kitchen rules',
+        'Programming rules',
+        'Tutorials',
+    ],
+    Nutanix: [
+        'Deployment rules',
+        'Programming rules',
+        'Dress code',
+    ],
+};
 
 module.exports = {
   up: async () => {
@@ -30,6 +42,7 @@ module.exports = {
       const company = new Company({
         _id: ObjectId(companyIds[i]),
         name: companyNames[i],
+        categories: categories[companyNames[i]],
         email: `company${i}@test.com`,
         password: bcrypt.hashSync('test', passwordHashSaltRounds),
         users: [

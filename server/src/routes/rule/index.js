@@ -82,6 +82,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// TODO: New request format, image save
 router.post('/', middleware('company'), validate(createRuleRequest), async (req, res) => {
   try {
 

@@ -2,6 +2,7 @@
 require('module-alias/register');
 const CompanySeeder = require('./company-seeder');
 const UserSeeder = require('./user-seeder');
+const RuleSeeder = require('./rule-seeder');
 
 
 if (!process.argv[1] || !process.argv[2]) {
@@ -11,7 +12,7 @@ if (!process.argv[1] || !process.argv[2]) {
 
 require('services/db')();
 
-const seeders = [UserSeeder, CompanySeeder];
+const seeders = [UserSeeder, CompanySeeder, RuleSeeder];
 const type = process.argv[2];
 
 const promises = seeders.map(seed => seed[type]());
