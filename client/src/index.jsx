@@ -14,19 +14,23 @@ import reducers from './reducers';
 import Routes from './routes';
 import './global.scss';
 
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 const history = createHistory();
-const store = createStoreWithMiddleware(reducers);
-const persisted = persistStore(store);
+
+const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+let store;
 
 // To ease debugging.
 if (process.env.NODE_ENV === 'development') {
+  store = createStoreWithMiddleware(
+    reducers,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  );
   window.store = store;
+} else {
+  store = createStoreWithMiddleware(reducers);
 }
 
-if (module.hot) {
-  module.hot.accept();
-}
+const persisted = persistStore(store);
 
 const AppWrapper = () => (
   <Provider store={store}>

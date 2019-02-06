@@ -7,7 +7,6 @@ module.exports = {
   password: Joi.string().required(),
   name: Joi.string().required(),
   lastname: Joi.string().required(),
-  companyName: Joi.string().required(),
   companyId: Joi.string().required(),
   invitationToken: Joi.string().required(),
 };

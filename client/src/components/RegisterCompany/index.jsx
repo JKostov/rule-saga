@@ -4,49 +4,48 @@ import PropTypes from 'prop-types';
 import {
   Label, Form, Input, Button,
 } from 'semantic-ui-react';
-import Joi from 'joi-browser';
+import Joi from 'joi-browser'; // eslint-disable import/no-named-as-default
 import { Alert } from '../elements';
+import { registerCompany } from '../../api/auth';
 import style from './style.scss';
 
-class Login extends Component {
+class Register extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       email: '',
       password: '',
+      name: '',
       validationError: null,
       loading: false,
     };
 
+    this.handleNameChange = this.handleNameChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.onForgotPassword = this.onForgotPassword.bind(this);
-  }
-
-  onForgotPassword(e) {
-    e.preventDefault();
-
-    const { push } = this.props;
-    push('/forgot-password');
   }
 
   setError(validationError = null) {
     this.setState({ validationError });
   }
 
-  runLoginAction() {
-    const { email, password } = this.state;
-    const { login: loginAction, route, push } = this.props;
+  handleRegister() {
+    const { email, password, name } = this.state;
+    const { push } = this.props;
     this.setState({ loading: true });
-    loginAction(email, password)
-      .then(() => push(route))
+    registerCompany(name, email, password)
+      .then(() => push('/login-company'))
       .catch((e) => {
-      const { data } = e.response;
-      this.setError(data.message);
-      this.setState({ loading: false });
-    });
+        const { data } = e.response;
+        this.setError(data.message);
+        this.setState({ loading: false });
+      });
+  }
+
+  handleNameChange(e) {
+    this.setState({ name: e.target.value });
   }
 
   handleEmailChange(e) {
@@ -62,13 +61,14 @@ class Login extends Component {
     this.setError();
 
     if (this.validateForm()) {
-      this.runLoginAction();
+      this.handleRegister();
     }
   }
 
   validateForm() {
-    const { email, password } = this.state;
+    const { email, password, name } = this.state;
     const schema = Joi.object().keys({
+      name: Joi.string().required().error(new Error('Name is required.')),
       email: Joi.string()
         .email({ minDomainAtoms: 2 })
         .required()
@@ -78,7 +78,7 @@ class Login extends Component {
         .error(new Error('Password is required.')),
     });
 
-    const result = Joi.validate({ email, password }, schema);
+    const result = Joi.validate({ email, password, name }, schema);
     if (result.error && result.error.message) {
       this.setState({
         validationError: result.error.message,
@@ -89,7 +89,7 @@ class Login extends Component {
 
   render() {
     const {
-      email, password, validationError, loading,
+      email, password, validationError, loading, name,
     } = this.state;
 
     return (
@@ -99,11 +99,20 @@ class Login extends Component {
         onSubmit={this.handleSubmit}
         noValidate
       >
-        <Alert className={style.errorMessage} data-cy="error_login" message={validationError} />
+        <Alert className={style.errorMessage} message={validationError} />
+        <Form.Field>
+          <Label className={style.label}>Name</Label>
+          <Input
+            type="text"
+            name="name"
+            placeholder="Name"
+            value={name}
+            onChange={this.handleNameChange}
+          />
+        </Form.Field>
         <Form.Field>
           <Label className={style.label}>Email</Label>
           <Input
-            data-cy="email_login"
             type="email"
             name="email"
             placeholder="Email"
@@ -114,7 +123,6 @@ class Login extends Component {
         <Form.Field>
           <Label className={style.label}>Password</Label>
           <Input
-            data-cy="pass_login"
             type="password"
             name="password"
             placeholder="Password"
@@ -127,22 +135,16 @@ class Login extends Component {
           disabled={loading}
           color="blue"
           type="submit"
-          data-cy="submit_login"
         >
-          Login
-        </Button>
-        <Button basic color="blue" onClick={this.onForgotPassword}>
-          Forgot password?
+          Register
         </Button>
       </Form>
     );
   }
 }
 
-Login.propTypes = {
-  route: PropTypes.string.isRequired,
-  login: PropTypes.func.isRequired,
+Register.propTypes = {
   push: PropTypes.func.isRequired,
 };
 
-export default Login;
+export default Register;

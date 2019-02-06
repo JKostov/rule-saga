@@ -105,10 +105,9 @@ router.post('/', middleware('company'), validate(createRuleRequest), async (req,
         name: tag,
         company: companyId,
       });
-      if (foundTag) {
-        const { rules } = foundTag;
 
-        foundTag.rules = rules.push({
+      if (foundTag) {
+        foundTag.rules.push({
           _id: rule.id,
           name: rule.name,
         });
@@ -181,7 +180,7 @@ router.put('/:id', middleware('company'), validate(updateRuleRequest), async (re
           return;
         }
 
-        foundTag.rules = rules.push({
+        foundTag.rules.push({
           _id: rule.id,
           name: rule.name,
         });

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
@@ -12,29 +12,41 @@ const dynamicImport = loader =>
     loading: () => <Loader active inline="centered" />,
   });
 
-const AdminRoutes = () => <Route path="/admin" render={() => 'Admin route'} />;
+const CompanyRoutes = () => (
+  <Fragment>
+    <Route path="/dashboard-company" component={dynamicImport(() => import('../pages/DashboardCompany'))} />
+  </Fragment>
+);
 
-const LoggedInList = ({ isAdmin }) => (
+const UserRoutes = () => (
+  <Fragment>
+    <Route path="/dashboard-user" component={dynamicImport(() => import('../pages/DashboardUser'))} />
+  </Fragment>
+);
+
+const LoggedInList = ({ isUser }) => (
   <Switch>
     <Route exact path="/" render={() => 'Hello world.'} />
     <Route path="/logout" component={dynamicImport(() => import('../components/Logout'))} />
-    {isAdmin && <AdminRoutes />}
+    {isUser ? <UserRoutes /> : <CompanyRoutes/>}
     <Redirect to="/" />
   </Switch>
 );
 
 LoggedInList.propTypes = {
-  isAdmin: PropTypes.bool,
+  isUser: PropTypes.bool,
 };
 
 LoggedInList.defaultProps = {
-  isAdmin: false,
+  isUser: true,
 };
 
 const LoggedOutList = () => (
   <Switch>
-    <Route exact path="/login" component={dynamicImport(() => import('../pages/Login'))} />
-    <Route exact path="/register" component={dynamicImport(() => import('../pages/Register'))} />
+    <Route exact path="/login-company" component={dynamicImport(() => import('../pages/LoginCompany'))} />
+    <Route exact path="/login-user" component={dynamicImport(() => import('../pages/LoginUser'))} />
+    <Route exact path="/register-company" component={dynamicImport(() => import('../pages/RegisterCompany'))} />
+    <Route path="/auth/company-invitation" component={dynamicImport(() => import('../pages/RegisterUser'))} />
     <Route
       exact
       path="/forgot-password"
@@ -44,13 +56,13 @@ const LoggedOutList = () => (
       path="/reset-password/:token"
       component={dynamicImport(() => import('../pages/ResetPassword'))}
     />
-    <Redirect to="/login" />
+    <Redirect to="/login-company" />
   </Switch>
 );
 
-const Routes = ({ isLoggedIn, isAdmin }) => (
-  <AppLayout isLoggedIn={isLoggedIn} isAdmin={isAdmin}>
-    {isLoggedIn ? <LoggedInList isAdmin={isAdmin} /> : <LoggedOutList />}
+const Routes = ({ isLoggedIn, isUser }) => (
+  <AppLayout isLoggedIn={isLoggedIn} isUser={isUser}>
+    {isLoggedIn ? <LoggedInList isUser={isUser} /> : <LoggedOutList />}
   </AppLayout>
 );
 
@@ -61,11 +73,11 @@ Routes.propTypes = {
 
 Routes.defaultProps = {
   isLoggedIn: null,
-  isAdmin: false,
+  isUser: true,
 };
 
 const mapStateToProps = ({ auth }) => ({
-  isAdmin: auth.getIn(['user', 'isAdmin']),
+  isUser: !!auth.get('user'),
   isLoggedIn: !!auth.get('token'),
 });
 

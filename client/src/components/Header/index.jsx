@@ -23,9 +23,27 @@ class Header extends Component {
   }
 
   leftMenu() {
+    const { isUser } = this.props;
+
+    return (
+      <Menu.Menu position="left">
+        {isUser ? this.leftMenuUser() : this.leftMenuCompany()}
+      </Menu.Menu>
+    );
+  }
+
+  leftMenuUser() {
     return (
       <React.Fragment>
-        <MenuItem name="home" onClick={() => this.itemChangeCallback('/')} />
+        <MenuItem name="dashboard" onClick={() => this.itemChangeCallback('/dashboard-user')} />
+      </React.Fragment>
+    );
+  }
+
+  leftMenuCompany() {
+    return (
+      <React.Fragment>
+        <MenuItem name="dashboard" onClick={() => this.itemChangeCallback('/dashboard-company')} />
       </React.Fragment>
     );
   }
@@ -35,24 +53,14 @@ class Header extends Component {
 
     return (
       <Menu.Menu position="right">
-        {isLoggedIn ? this.rightMenuUser() : this.rightMenuGuest()}
+        {isLoggedIn ? this.rightMenuLoggedIn() : this.rightMenuGuest()}
       </Menu.Menu>
     );
   }
 
-  rightMenuUser() {
-    const { isAdmin } = this.props;
-
-    const adminMenuItem = isAdmin && (
-      <MenuItem
-        name="Admin"
-        onClick={() => this.itemChangeCallback('/admin')}
-      />
-    );
-
+  rightMenuLoggedIn() {
     return (
       <React.Fragment>
-        {adminMenuItem}
         <MenuItem
           name="logout"
           onClick={() => this.itemChangeCallback('/logout')}
@@ -64,14 +72,15 @@ class Header extends Component {
   rightMenuGuest() {
     return (
       <React.Fragment>
-        <MenuItem name="login" onClick={() => this.itemChangeCallback('/login')} />
-        <MenuItem name="sign up" onClick={() => this.itemChangeCallback('/register')} />
+        <MenuItem name="login-user" onClick={() => this.itemChangeCallback('/login-user')} />
+        <MenuItem name="login-company" onClick={() => this.itemChangeCallback('/login-company')} />
+        <MenuItem name="sign up" onClick={() => this.itemChangeCallback('/register-company')} />
       </React.Fragment>
     );
   }
 
   render() {
-    const { className } = this.props;
+    const { className, isLoggedIn } = this.props;
 
     const segmentClass = classNames(style.segment, {
       [className]: className,
@@ -81,7 +90,7 @@ class Header extends Component {
       <Segment className={segmentClass}>
         <Menu pointing secondary size="large">
           <Container>
-            {this.leftMenu()}
+            {isLoggedIn && this.leftMenu()}
             {this.rightMenu()}
           </Container>
         </Menu>
@@ -91,14 +100,14 @@ class Header extends Component {
 }
 
 Header.defaultProps = {
-  isAdmin: false,
+  isUser: true,
   isLoggedIn: false,
   activeItem: '/',
   className: null,
 };
 
 Header.propTypes = {
-  isAdmin: PropTypes.bool,
+  isUser: PropTypes.bool,
   isLoggedIn: PropTypes.bool,
   activeItem: PropTypes.string,
   className: PropTypes.string,

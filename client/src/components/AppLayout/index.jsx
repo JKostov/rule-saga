@@ -7,7 +7,7 @@ import Header from '../Header';
 import style from './styles.scss';
 
 const AppLayout = ({
-  children, history, location, isLoggedIn, isAdmin,
+  children, history, location, isLoggedIn, isUser,
 }) => {
   const changeRoute = (newRoute) => {
     history.push(newRoute);
@@ -20,7 +20,7 @@ const AppLayout = ({
         onItemChange={changeRoute}
         activeItem={location.pathname}
         isLoggedIn={isLoggedIn}
-        isAdmin={isAdmin}
+        isUser={isUser}
       />
       <Container>{children}</Container>
     </div>
@@ -36,12 +36,12 @@ AppLayout.propTypes = {
     pathname: PropTypes.string,
   }).isRequired,
   isLoggedIn: PropTypes.bool,
-  isAdmin: PropTypes.bool,
+  isUser: PropTypes.bool,
 };
 
 AppLayout.defaultProps = {
   isLoggedIn: false,
-  isAdmin: false,
+  isUser: true,
 };
 
 export default withRouter(AppLayout);

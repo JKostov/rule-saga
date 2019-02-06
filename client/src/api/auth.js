@@ -1,15 +1,28 @@
 
 import axios from '.';
 
-export function login(email, password) {
+export function loginUser(email, password) {
   return axios.post('/auth/login-user', {
     email,
     password,
   });
 }
 
-export function register(name, email, password) {
-  return axios.post('/auth/register', {
+export function loginCompany(email, password) {
+  return axios.post('/auth/login-company', {
+    email,
+    password,
+  });
+}
+
+export function registerUser(payload)  {
+  return axios.post('/auth/register-user', {
+    ...payload
+  });
+}
+
+export function registerCompany(name, email, password) {
+  return axios.post('/auth/register-company', {
     name,
     email,
     password,

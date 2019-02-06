@@ -6,21 +6,21 @@ import { Grid } from 'semantic-ui-react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Segment, Header } from '../../components/elements';
-import { login } from '../../thunks/auth';
+import { loginCompany} from '../../thunks/auth';
 import Login from '../../components/Login';
 
-const LoginPage = ({ loginAction, history: { push } }) => (
+const LoginCompanyPage = ({ loginAction, history: { push } }) => (
   <Grid stackable centered columns={2}>
     <Grid.Column>
-      <Header header="Login" />
+      <Header header="Login as company" />
       <Segment>
-        <Login push={push} login={loginAction} />
+        <Login push={push} route={'/dashboard-company'} login={loginAction} />
       </Segment>
     </Grid.Column>
   </Grid>
 );
 
-LoginPage.propTypes = {
+LoginCompanyPage.propTypes = {
   loginAction: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
@@ -29,7 +29,7 @@ LoginPage.propTypes = {
 
 const mapDispatchToProps = dispatch => bindActionCreators(
   {
-    loginAction: login,
+    loginAction: loginCompany,
   },
   dispatch,
 );
@@ -38,5 +38,5 @@ export default withRouter(
   connect(
     null,
     mapDispatchToProps,
-  )(LoginPage),
+  )(LoginCompanyPage),
 );

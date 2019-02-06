@@ -6,10 +6,10 @@ import {
 } from 'semantic-ui-react';
 import Joi from 'joi-browser'; // eslint-disable import/no-named-as-default
 import { Alert } from '../elements';
-import { register } from '../../api/auth';
+import { registerUser } from '../../api/auth';
 import style from './style.scss';
 
-class Register extends Component {
+class RegisterUser extends Component {
   constructor(props) {
     super(props);
 
@@ -17,11 +17,13 @@ class Register extends Component {
       email: '',
       password: '',
       name: '',
+      lastname: '',
       validationError: null,
       loading: false,
     };
 
     this.handleNameChange = this.handleNameChange.bind(this);
+    this.handleLastNameChange = this.handleLastNameChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,16 +34,30 @@ class Register extends Component {
   }
 
   handleRegister() {
-    const { email, password, name } = this.state;
-    const { push } = this.props;
+    const { email, password, name, lastname } = this.state;
+    const { push, companyInvitation: { company, invitationToken } } = this.props;
+
+    const payload = {
+      email,
+      password,
+      name,
+      lastname,
+      companyId: company,
+      invitationToken,
+    };
+
     this.setState({ loading: true });
-    register(name, email, password)
-      .then(() => push('/login'))
+    registerUser(payload)
+      .then(() => push('/login-user'))
       .catch((e) => {
         const { data } = e.response;
         this.setError(data.message);
         this.setState({ loading: false });
       });
+  }
+
+  handleLastNameChange(e) {
+    this.setState({ lastname: e.target.value });
   }
 
   handleNameChange(e) {
@@ -66,8 +82,9 @@ class Register extends Component {
   }
 
   validateForm() {
-    const { email, password, name } = this.state;
+    const { email, password, name, lastname } = this.state;
     const schema = Joi.object().keys({
+      lastname: Joi.string().required().error(new Error('Last name is required.')),
       name: Joi.string().required().error(new Error('Name is required.')),
       email: Joi.string()
         .email({ minDomainAtoms: 2 })
@@ -78,7 +95,7 @@ class Register extends Component {
         .error(new Error('Password is required.')),
     });
 
-    const result = Joi.validate({ email, password, name }, schema);
+    const result = Joi.validate({ email, password, name, lastname }, schema);
     if (result.error && result.error.message) {
       this.setState({
         validationError: result.error.message,
@@ -89,7 +106,7 @@ class Register extends Component {
 
   render() {
     const {
-      email, password, validationError, loading, name,
+      email, password, validationError, loading, name, lastname,
     } = this.state;
 
     return (
@@ -108,6 +125,16 @@ class Register extends Component {
             placeholder="Name"
             value={name}
             onChange={this.handleNameChange}
+          />
+        </Form.Field>
+        <Form.Field>
+          <Label className={style.label}>Last name</Label>
+          <Input
+            type="text"
+            name="name"
+            placeholder="Last name"
+            value={lastname}
+            onChange={this.handleLastNameChange}
           />
         </Form.Field>
         <Form.Field>
@@ -143,8 +170,9 @@ class Register extends Component {
   }
 }
 
-Register.propTypes = {
+RegisterUser.propTypes = {
   push: PropTypes.func.isRequired,
+  companyInvitation: PropTypes.shape({}).isRequired,
 };
 
-export default Register;
+export default RegisterUser;

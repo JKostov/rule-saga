@@ -58,10 +58,14 @@ router.post('/login-user', validate(loginRequest), async (req, res) => {
     delete user.password;
     const userToken = encrypt(user);
 
+    const { company: { name } } = user;
+    const company = await Company.findOne({ name }).lean().exec();
+
     return res.status(200).send({
       data: {
         ...user,
         token: userToken,
+        company,
       },
     });
   } catch (e) {
@@ -77,7 +81,11 @@ router.post('/login-company', validate(loginRequest), async (req, res) => {
 
     const { email, password } = req.body;
 
-    const company = await Company.findOne({ email }).lean().exec();
+    const company = await Company
+      .findOne({ email })
+      .populate('users')
+      .lean()
+      .exec();
 
     if (!company) {
       return responseWrongPass(res);
@@ -106,7 +114,7 @@ router.post('/login-company', validate(loginRequest), async (req, res) => {
 router.post('/register-user', validate(registerUserRequest), async (req, res) => {
   try {
 
-    const { password, companyName, companyId, email, invitationToken, ...attributes } = req.body;
+    const { password, companyId, email, invitationToken, ...attributes } = req.body;
 
     const userExists = await User.findOne({ email }).lean().exec();
 
@@ -115,8 +123,9 @@ router.post('/register-user', validate(registerUserRequest), async (req, res) =>
     }
 
     const companyInvitation = await CompanyInvitation.findOne({ invitationToken }).lean().exec();
+    const company = await Company.findOne({ _id: companyId });
 
-    if (!companyInvitation) {
+    if (!companyInvitation || !company) {
       return res.status(400).send({ message: 'Bad request. You have not been invited.' });
     }
 
@@ -127,7 +136,7 @@ router.post('/register-user', validate(registerUserRequest), async (req, res) =>
       status: 'inactive',
       company: {
         _id: companyId,
-        name: companyName,
+        name: company.name,
       },
       registerToken: uuid(),
     });
@@ -143,8 +152,11 @@ router.post('/register-user', validate(registerUserRequest), async (req, res) =>
       .lean()
       .exec();
 
-
     await user.save();
+
+    company.users.push(user._id);
+
+    await company.save();
 
     const emailPayload = {
       token: user.registerToken,
@@ -241,6 +253,33 @@ router.post('/:companyId/invite-user', validate(inviteUserRequest), async (req, 
     await emailService.sendEmail(mail);
 
     return responseCompanyInvitationSent(res);
+  } catch (e) {
+    logger.error(e);
+    return res.status(500).send({
+      message: responses(500),
+    });
+  }
+});
+
+router.post('/verify-invitation/:token', async (req, res) => {
+  try {
+
+    const { token } = req.params;
+
+    const companyInvitation = await CompanyInvitation
+      .findOne({
+        invitationToken: token
+      })
+      .lean()
+      .exec();
+
+    if (!companyInvitation) {
+      return res.status(400).message('Bad Request');
+    }
+
+    return res.send({
+      data: companyInvitation,
+    })
   } catch (e) {
     logger.error(e);
     return res.status(500).send({
