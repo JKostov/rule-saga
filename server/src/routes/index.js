@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const authRouter = require('./auth');
 const companyRouter = require('./company');
-const ruleRouter = require('./company');
+const ruleRouter = require('./rule');
 const middleware = require('middleware');
 
 const editProfileRouter = require('./editProfile');

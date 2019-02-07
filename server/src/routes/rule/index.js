@@ -6,8 +6,9 @@ const responses = require('services/responses');
 const validate = require('middleware/validate');
 const createRuleRequest = require('requests/rule/create');
 const updateRuleRequest = require('requests/rule/update');
+const upload = require('services/multer');
 
-const { Rule, Tag } = require('models');
+const { Rule } = require('models');
 
 const router = Router();
 
@@ -15,13 +16,13 @@ router.get('/:category', middleware('company'), async (req, res) => {
   try {
 
     const { category } = req.params;
-    const { company: { categories } } = req.company;
+    const { company } = req;
 
-    if (categories.indexOf(category) === -1) {
+    if (company.categories.indexOf(category) === -1) {
       return res.status(404).send({ message: 'Company doesn\'t have this category '})
     }
 
-    const rules = await Rule.find({ category }).lean.exec();
+    const rules = await Rule.find({ category, company });
 
     return res.status(200).send({
       data: rules,
@@ -34,24 +35,24 @@ router.get('/:category', middleware('company'), async (req, res) => {
   }
 });
 
-router.get('/:tag', middleware('company'), async (req, res) => {
+router.get('/:category/:tag', middleware('company'), async (req, res) => {
   try {
 
-    const { tag } = req.params;
-    const { _id  } = req.company;
-    const foundTag = await Tag.findOne({
-      name: tag,
-      company: _id,
-    })
-      .exec
-      .lean();
+    const { tag, category } = req.params;
+    const { company  } = req;
 
-    if (!foundTag) {
-      return res.status(404).send({ message: 'Tag with given name not found '});
+    if (company.categories.indexOf(category) === -1) {
+      return res.status(404).send({ message: 'Company doesn\'t have this category '})
     }
 
+    const rules = await Rule.find({
+      category,
+      company,
+      tags: new RegExp(`^.*${tag}.*$`, 'i'),
+    });
+
     return res.status(200).send({
-      data: foundTag.rules,
+      data: rules,
     });
   } catch (e) {
     logger.error(e);
@@ -82,135 +83,102 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// TODO: New request format, image save
-router.post('/', middleware('company'), validate(createRuleRequest), async (req, res) => {
-  try {
-
-    const { companyId, category, tags, ...ruleBody } = req.body;
-    const { company: { categories } } = req.company;
-
-    if (categories.indexOf(category)) {
-      return res.status(400).send({ message: 'Company has no given category'});
+const findFileSaveNameByName = (name, files) => {
+    for (let index in files) {
+        const file = files[index];
+        if(file.originalname === name) {
+            return file.filename;
+        }
     }
+    return null;
+};
 
-    const rule = new Rule({
-      ...ruleBody,
-      tags,
-      category,
-    });
+router.post('/', upload.fields([{ name: 'images', maxCount: 5 }]), middleware('company'), validate(createRuleRequest), async (req, res) => {
+    try {
+        const { company } = req;
+        const { name, category, tags, data } = req.body;
+        if(company.categories.indexOf(category) === -1) {
+            return res.status(400).send({
+                message: 'Bad category.',
+            });
+        }
 
-    await rule.save();
-
-    tags.forEach( async (tag) => {
-      const foundTag = await Tag.findOne({
-        name: tag,
-        company: companyId,
-      });
-
-      if (foundTag) {
-        foundTag.rules.push({
-          _id: rule.id,
-          name: rule.name,
+        const images = req.files['images'];
+        const insertData = data.map(obj => {
+            return {
+                type: obj.type,
+                content: obj.type === 'image' ? findFileSaveNameByName(obj.content, images) : obj.content,
+            };
         });
 
-        await foundTag.save();
-        return;
-      }
+        const rule = new Rule({
+            name,
+            category,
+            company: {
+                __id: company.__id,
+                name: company.name,
+            },
+            tags,
+            data: insertData,
+        });
 
-      const newTag = new Tag({
-        name: tag,
-        company: companyId,
-        rules: [{
-          _id: rule.id,
-          name: rule.name,
-        }]
-      });
+        await rule.save();
 
-      await newTag.save();
-    });
+        return res.status(200).send({
+            data: rule,
+        });
 
-    return res.status(200).send({
-      data: rule,
-    });
-  } catch (e) {
-    logger.error(e);
-    return res.status(500).send({
-      message: responses(500),
-    });
-  }
+    } catch (e) {
+        logger.error(e);
+        return res.status(500).send({
+            message: responses(500),
+        });
+    }
 });
 
 router.put('/:id', middleware('company'), validate(updateRuleRequest), async (req, res) => {
-  try {
+    try {
 
-    const { id } = req.params;
-    const { companyId, category, tags, ...updateBody } = req.body;
-    const { company: { categories } } = req.company;
-
-    if (categories.indexOf(category)) {
-      return res.status(400).send({ message: 'Company has no given category'});
-    }
-
-    const updatedRule = await Rule.findByIdAndUpdate(id, {
-      $set: {
-        category,
-        tags,
-        ...updateBody,
-      }
-    }, {
-      new: true,
-      useFindAndModify: false
-    })
-      .lean()
-      .exec();
-
-    if (!updatedRule) {
-      return res.status(400).send({ message: responses(400) });
-    }
-
-    tags.forEach( async (tag) => {
-      const foundTag = await Tag.findOne({
-        name: tag,
-        company: companyId,
-      });
-      if (foundTag) {
-        const { rules } = foundTag;
-
-        const ruleExists = rules.filter(({ _id }) => _id === updatedRule._id);
-        if (ruleExists.length === 1) {
-          return;
+        const { id } = req.params;
+        const { company } = req;
+        const { name, category, tags, data } = req.body;
+        if (company.categories.indexOf(category) === -1) {
+            return res.status(400).send({message: 'Company has no given category'});
         }
 
-        foundTag.rules.push({
-          _id: rule.id,
-          name: rule.name,
+        const images = req.files['images'];
+        const insertData = data.map(obj => {
+            return {
+                type: obj.type,
+                content: obj.type === 'image' ? findFileSaveNameByName(obj.content, images) : obj.content,
+            };
         });
 
-        await foundTag.save();
-        return;
-      }
+        const updatedRule = await Rule.findByIdAndUpdate(id, {
+            $set: {
+                name,
+                category,
+                tags,
+                data: insertData,
+            }
+        }, {
+            new: true,
+            useFindAndModify: false
+        });
 
-      const newTag = new Tag({
-        name: tag,
-        company: companyId,
-        rules: [{
-          _id: rule.id,
-          name: rule.name,
-        }]
-      });
+        if (!updatedRule) {
+            return res.status(400).send({message: responses(400)});
+        }
 
-      await newTag.save();
-    });
-
-    return res.status(200).send({
-      data: rule,
-    });
-  } catch (e) {
-    logger.error(e);
-    return res.status(500).send({
-      message: responses(500),
-    });
-  }
+        return res.status(200).send({
+            data: updatedRule,
+        });
+    } catch (e) {
+        logger.error(e);
+        return res.status(500).send({
+            message: responses(500),
+        });
+    }
 });
 
 router.delete('/:id', middleware('company'), async (req, res) => {
@@ -223,25 +191,6 @@ router.delete('/:id', middleware('company'), async (req, res) => {
     if (!rule) {
       return res.status(404).send({ message: 'Rule with given id  not found'});
     }
-
-    const { tags } = rule;
-
-    tags.forEach( async (tag) => {
-      const foundTag = await Tag.findOne({
-        name: tag,
-        company: _id,
-      });
-
-      const { rules } = foundTag;
-      const filteredRules = rules.filter(({ _id }) => _id !== id);
-
-      if (!filteredRules) {
-        await tag.remove();
-      }
-
-      foundTag.rules = filteredRules;
-      await tag.save();
-    });
 
     await rule.remove();
 
