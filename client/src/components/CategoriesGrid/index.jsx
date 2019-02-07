@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid } from 'semantic-ui-react';
 
-const CategoriesGrid = (categories) => {
+const CategoriesGrid = ({ categories }) => {
   if (!categories.length) {
     return 'No categories yet...';
   }
