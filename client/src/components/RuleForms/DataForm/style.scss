@@ -1,0 +1,25 @@
+.form {
+  margin: auto;
+  padding: 20px 0;
+
+  .errorMessage {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .label {
+    background-color: transparent !important;
+    padding-left: 0 !important;
+  }
+}
+
+.labelRed {
+  display: block !important;
+  margin: 5px 0 !important;
+  padding: 10px !important;
+  width: 50% !important;
+  background-color: #fff6f6 !important;
+  box-shadow: 0 0 0 1px #e0b4b4 inset, 0 0 0 0 transparent;
+  color: #9f3a38 !important;
+}
+

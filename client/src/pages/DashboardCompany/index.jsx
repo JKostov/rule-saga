@@ -6,6 +6,8 @@ import CategoriesGrid from "../../components/CategoriesGrid";
 import UsersList from "../../components/UsersList";
 import UserInvitation from "../../components/UserInvitation";
 import { Segment } from "../../components/elements";
+import RuleForm from "../../components/RuleForms/RuleForm";
+import SubHeader from "../../components/elements/SubHeader";
 
 class DashboardCompany extends Component {
 
@@ -23,8 +25,12 @@ class DashboardCompany extends Component {
           <CategoriesGrid categories={categories} />
         </Segment>
         <Segment>
-          {/*<UsersList users={users} />*/}
+          <UsersList users={users} />
           <UserInvitation companyId={_id} />
+        </Segment>
+        <Segment>
+          <SubHeader header="Add new rule"/>
+          <RuleForm companyId={_id}/>
         </Segment>
       </Fragment>
     );
