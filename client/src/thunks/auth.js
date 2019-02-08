@@ -42,6 +42,5 @@ export function loginCompany(email, password) {
     .then((payload) => {
       dispatch(loginCompanyAction(payload));
       localStorage.setItem('_token', payload.token);
-      localStorage.setItem('companyId', payload.company._id);
     });
 }

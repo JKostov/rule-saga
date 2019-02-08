@@ -16,13 +16,9 @@ const instance = axios.create({
 instance.interceptors.request.use(
   (config) => {
     const authToken = localStorage.getItem('_token');
-    const companyId = localStorage.getItem('companyId');
 
     if (authToken) {
       config.headers.Authorization = authToken;
-    }
-    if (companyId) {
-        config.headers.companyid = companyId;
     }
 
     if (development) {
