@@ -1,0 +1,29 @@
+.accepted {
+  color: green;
+  font-weight: bold;
+}
+
+.rejected {
+  color: red;
+  font-weight: bold;
+}
+
+.hidden {
+  display: none;
+}
+
+.fileArea {
+  padding-top: 10px;
+}
+
+.label {
+  background-color: transparent !important;
+  padding-left: 0 !important;
+  color: green !important;
+  display: block !important;
+}
+
+.wrapper {
+  margin: auto;
+  padding: 20px 0;
+}
