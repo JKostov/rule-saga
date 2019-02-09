@@ -7,20 +7,49 @@ import {bindActionCreators} from "redux";
 import { Segment, SubHeader } from '../../components/elements';
 import RulesList from '../../components/RulesList';
 import { getRulesByCategory } from './../../thunks/rule';
-import {Button} from "semantic-ui-react";
+import {Button, Input} from "semantic-ui-react";
 import style from './style.scss';
 
 class Category extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      tags: [],
+    };
+
+    this.filterByTags = this.filterByTags.bind(this);
+    this.handleTagsChange = this.handleTagsChange.bind(this);
+  }
+
   componentDidMount() {
     const { location: { state: { category } }, getRulesByCategoryAction } = this.props;
     if (!category) {
       return null;
     }
+
+    console.log('mount');
     getRulesByCategoryAction(category);
+  }
+
+  filterByTags() {
+    const { location: { state: { category } }, getRulesByCategoryAction } = this.props;
+    const { tags } = this.state;
+
+    getRulesByCategoryAction(category, tags);
+  }
+
+  handleTagsChange(e) {
+    this.setState({
+      tags: e.target.value
+        .split(',')
+        .map(tag => tag.trim())
+    })
   }
 
   render() {
     const { rules, history: { push }, location: { pathname }, user } = this.props;
+    const { tags } = this.state;
     if (!rules) {
       return null;
     }
@@ -31,7 +60,15 @@ class Category extends Component {
     return (
       <Segment>
         <SubHeader header="Rules" />
-        {user || <Button className={style.floatRight} content="Add new rule" /> }
+        <Input
+          type="text"
+          name="Tags"
+          placeholder="Tags"
+          value={tags}
+          onChange={this.handleTagsChange}
+        />
+        <Button onClick={this.filterByTags} content="Filter by tags"/>
+        {user === null && <Button className={style.floatRight} content="Add new rule" /> }
         <RulesList push={push} rules={rules} category={category} />
       </Segment>
     );
