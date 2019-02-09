@@ -96,7 +96,7 @@ const findFileSaveNameByName = (name, files) => {
 router.post('/', upload.fields([{ name: 'images', maxCount: 5 }]), middleware('company'), validate(createRuleRequest), async (req, res) => {
     try {
         const { company } = req;
-        const { name, category, tags, data } = req.body;
+        const { name, category, tags, data } = JSON.parse(req.body.data);
         if(company.categories.indexOf(category) === -1) {
             return res.status(400).send({
                 message: 'Bad category.',
