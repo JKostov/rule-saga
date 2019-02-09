@@ -3,8 +3,13 @@ const { Company } = require('models');
 
 module.exports = async (request, response, next) => {
   try {
-    const { _id } = request.user;
-    const company = await Company.findById(_id);
+    let id;
+    if (request.user.company) {
+      id = request.user.company._id;
+    } else {
+      id = request.user._id;
+    }
+    const company = await Company.findById(id);
 
     if (!company) {
       return response.status(404).send({
