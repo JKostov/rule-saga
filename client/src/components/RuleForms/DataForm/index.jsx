@@ -75,7 +75,7 @@ class DataForm extends Component {
         return data;
       }
       const file = data.content;
-      data.content = file[0].name;
+      data.content = file.name;
       files.push(file);
       return data;
     });

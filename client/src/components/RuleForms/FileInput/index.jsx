@@ -23,7 +23,7 @@ class FileInput extends Component {
 
   onDrop(acceptedBlob) {
     const { data } = this.state;
-    data.content = acceptedBlob;
+    data.content = acceptedBlob[0];
     this.setState({ data, finished: true });
   }
 
@@ -50,7 +50,7 @@ class FileInput extends Component {
         <div className={style.hidden}>
           <Dropzone ref={this.dropZoneRef} onDrop={this.onDrop} accept={fileExt} />
         </div>
-        {content && <Label className={style.label}>File uploaded: {content[0].name}</Label>}
+        {content && <Label className={style.label}>File uploaded: {content.name}</Label>}
       </div>
     );
   }
