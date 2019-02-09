@@ -5,7 +5,7 @@ export function addRule(payload) {
   data.append('images', payload.data.files);
 
   delete payload.data.files;
-  data.append('data', payload);
+  data.append('data', JSON.stringify(payload));
 
   return axios.post('/rule', data);
 }
