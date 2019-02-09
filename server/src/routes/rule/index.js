@@ -17,39 +17,26 @@ router.get('/:category', middleware('company'), async (req, res) => {
 
     const { category } = req.params;
     const { company } = req;
+    const { tags } = req.query;
+    console.log(tags);
 
     if (company.categories.indexOf(category) === -1) {
       return res.status(404).send({ message: 'Company doesn\'t have this category '})
     }
 
-    const rules = await Rule.find({ category, company });
-
-    return res.status(200).send({
-      data: rules,
-    });
-  } catch (e) {
-    logger.error(e);
-    return res.status(500).send({
-      message: responses(500),
-    });
-  }
-});
-
-router.get('/:category/:tag', middleware('company'), async (req, res) => {
-  try {
-
-    const { tag, category } = req.params;
-    const { company  } = req;
-
-    if (company.categories.indexOf(category) === -1) {
-      return res.status(404).send({ message: 'Company doesn\'t have this category '})
+    let rules;
+    if (tags) {
+        const tagsArr = tags[0].split(',');
+        const regex = tagsArr.map(tag => new RegExp(`^.*${tag}.*$`, 'i'));
+        rules = await Rule.find({
+            category,
+            company,
+            tags: { $in: regex },
+        });
+    } else {
+        rules = await Rule.find({ category, company });
     }
-
-    const rules = await Rule.find({
-      category,
-      company,
-      tags: new RegExp(`^.*${tag}.*$`, 'i'),
-    });
+    console.log(rules);
 
     return res.status(200).send({
       data: rules,
@@ -115,7 +102,7 @@ router.post('/', upload.fields([{ name: 'images', maxCount: 5 }]), middleware('c
             name,
             category,
             company: {
-                __id: company.__id,
+                _id: company._id,
                 name: company.name,
             },
             tags,
