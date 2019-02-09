@@ -12,3 +12,4 @@ export const GET_COMPANY_INVITATION_ACTION = '@companyInvitation/getCompanyInvit
 
 // rule
 export const GET_RULES_BY_CATEGORY_ACTION = '@rule/getRulesByCategory';
+export const GET_RULE_ACTION = '@rule/getRule';

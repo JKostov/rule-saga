@@ -12,7 +12,7 @@ const { Rule } = require('models');
 
 const router = Router();
 
-router.get('/:category', middleware('company'), async (req, res) => {
+router.get('/:category/rules', middleware('company'), async (req, res) => {
   try {
 
     const { category } = req.params;
@@ -49,9 +49,8 @@ router.get('/:category', middleware('company'), async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
-
     const { id } = req.params;
-    const rule = await Rule.findOne({ _id: id, }).lean.exec();
+    const rule = await Rule.findOne({ _id: id, });
 
     if(!rule) {
       return res.status(404).send({ message: 'Rule not found'});

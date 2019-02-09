@@ -79,7 +79,7 @@ class Category extends Component {
           onChange={this.handleTagsChange}
         />
         <Button onClick={this.filterByTags} content="Filter by tags"/>
-        {user === null && <Button className={style.floatRight} content="Add new rule" /> }
+        {user === null && <Button onClick={() => push(`/category/${category}/rule/new`)} className={style.floatRight} content="Add new rule" /> }
         <RulesList push={push} rules={rules} category={category} />
       </Segment>
     );

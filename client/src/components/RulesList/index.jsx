@@ -15,7 +15,7 @@ const RulesGrid = ({ rules, category, push }) => {
         <Grid.Column
           key={rule.name}
           className={style.rule}
-          onClick={() => push(`/category/${category}/rule/${rule.name}`)}
+          onClick={() => push(`/category/${category}/rule/${rule._id}`)}
         >
           {rule.name}
         </Grid.Column>

@@ -1,5 +1,5 @@
-import { getRulesByCategory as getRulesByCategoryApi } from "../api/rule";
-import { getRulesByCategory as getRulesByCategoryAction } from "../reducers/rule";
+import { getRulesByCategory as getRulesByCategoryApi, getRule as getRuleApi } from "../api/rule";
+import { getRulesByCategory as getRulesByCategoryAction, getRule as getRuleAction } from "../reducers/rule";
 
 
 export function getRulesByCategory(payload) {
@@ -8,4 +8,12 @@ export function getRulesByCategory(payload) {
       const { data } = response.data;
       dispatch(getRulesByCategoryAction(data));
     });
+}
+
+export function getRule(payload) {
+    return dispatch => getRuleApi(payload)
+        .then((response) => {
+            const { data } = response.data;
+            dispatch(getRuleAction(data));
+        });
 }

@@ -14,8 +14,12 @@ export function addRule(payload) {
 
 export function getRulesByCategory({ category, tags}) {
   if (!tags) {
-    return axios.get(`/rule/${category}`)
+    return axios.get(`/rule/${category}/rules`)
   }
 
   return axios.get(`/rule/${category}?tags[]=${tags}`);
+}
+
+export function getRule(ruleId) {
+    return axios.get(`/rule/${ruleId}`);
 }
