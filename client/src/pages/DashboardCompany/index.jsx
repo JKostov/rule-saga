@@ -1,17 +1,17 @@
 
 import React, {Component, Fragment} from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import CategoriesGrid from "../../components/CategoriesGrid";
 import UsersList from "../../components/UsersList";
 import UserInvitation from "../../components/UserInvitation";
 import { Segment } from "../../components/elements";
-import RuleForm from "../../components/RuleForms/RuleForm";
 
 class DashboardCompany extends Component {
 
   render() {
-    const { company } = this.props;
+    const { company, history: { push } } = this.props;
     if (!company) {
       return null;
     }
@@ -21,14 +21,11 @@ class DashboardCompany extends Component {
     return (
       <Fragment>
         <Segment>
-          <CategoriesGrid categories={categories} />
+          <CategoriesGrid push={push} categories={categories} />
         </Segment>
         <Segment>
-          <UsersList users={users} />}
           <UserInvitation companyId={_id} />
-        </Segment>
-        <Segment>
-          <RuleForm companyId={_id}/>
+          <UsersList users={users} />
         </Segment>
       </Fragment>
     );
@@ -43,4 +40,4 @@ const mapStateToProps = ({ auth }) => ({
   company: auth.get('company'),
 });
 
-export default connect(mapStateToProps, null)(DashboardCompany);
+export default withRouter(connect(mapStateToProps, null)(DashboardCompany));

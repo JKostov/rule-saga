@@ -11,3 +11,11 @@ export function addRule(payload) {
 
   return axios.post('/rule', data);
 }
+
+export function getRulesByCategory(category, tags) {
+  if (!tags) {
+    return axios.get(`/rule/${category}`)
+  }
+
+  return axios.get(`/rule/${category}?tags[]=${tags}`);
+}
