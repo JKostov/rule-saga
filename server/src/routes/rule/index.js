@@ -18,7 +18,6 @@ router.get('/:category', middleware('company'), async (req, res) => {
     const { category } = req.params;
     const { company } = req;
     const { tags } = req.query;
-    console.log(tags);
 
     if (company.categories.indexOf(category) === -1) {
       return res.status(404).send({ message: 'Company doesn\'t have this category '})
@@ -36,7 +35,6 @@ router.get('/:category', middleware('company'), async (req, res) => {
     } else {
         rules = await Rule.find({ category, company });
     }
-    console.log(rules);
 
     return res.status(200).send({
       data: rules,
