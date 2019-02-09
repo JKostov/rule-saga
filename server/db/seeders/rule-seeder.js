@@ -41,7 +41,7 @@ module.exports = {
                 let content;
                 switch (type) {
                     case 'image':
-                        content = `${faker.random.number()}.jpg`;
+                        content = faker.random.arrayElement(['sl1.jpg', 'sl2.jpg']);
                         break;
                     case 'text':
                         content = faker.lorem.paragraph();
