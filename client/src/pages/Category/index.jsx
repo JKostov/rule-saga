@@ -45,9 +45,9 @@ class Category extends Component {
     const { location: { pathname }, history: { push } } = this.props;
     const { tags } = this.state;
     const pathStrings = pathname.split('/');
-    const category = pathStrings[pathStrings.length - 1];
+    const category = pathStrings[pathStrings.length - 2];
 
-    push(`category/${category}/rules?tags[]=${tags}`);
+    push(`/category/${category}/rules?tags[]=${tags}`);
   }
 
   handleTagsChange(e) {
