@@ -15,13 +15,7 @@ const CategoriesGrid = ({ categories, push }) => {
     <SubHeader header="Categories" />
       <Grid stackable centered columns={3}>
       {categories.map(category => (
-        <Grid.Column key={category} className={style.rule} onClick={() => push({
-          pathname: `/category/${category
-            .split(' ')
-            .map(word => word.toLowerCase())
-            .join('-')}`,
-          state: { category }
-        })}
+        <Grid.Column key={category} className={style.rule} onClick={() => push(`/category/${category}/rules`)}
         >
           {category}
         </Grid.Column>

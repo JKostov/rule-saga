@@ -1,5 +1,6 @@
 
 import React, {Component } from 'react';
+import queryString from 'query-string';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
@@ -15,7 +16,7 @@ class Category extends Component {
     super(props);
 
     this.state = {
-      tags: [],
+      tags: '',
     };
 
     this.filterByTags = this.filterByTags.bind(this);
@@ -23,20 +24,30 @@ class Category extends Component {
   }
 
   componentDidMount() {
-    const { location: { state: { category } }, getRulesByCategoryAction } = this.props;
+    const { location: { pathname, search }, getRulesByCategoryAction } = this.props;
+    const pathStrings = pathname.split('/');
+    const query = queryString.parse(search);
+    const category = pathStrings[pathStrings.length - 2];
     if (!category) {
       return null;
     }
+    const payload = {
+      category,
+    };
 
-    console.log('mount');
-    getRulesByCategoryAction(category);
+    if (query['tags[]']) {
+      payload.tags = query['tags[]'];
+    }
+    getRulesByCategoryAction(payload);
   }
 
   filterByTags() {
-    const { location: { state: { category } }, getRulesByCategoryAction } = this.props;
+    const { location: { pathname }, history: { push } } = this.props;
     const { tags } = this.state;
+    const pathStrings = pathname.split('/');
+    const category = pathStrings[pathStrings.length - 1];
 
-    getRulesByCategoryAction(category, tags);
+    push(`category/${category}/rules?tags[]=${tags}`);
   }
 
   handleTagsChange(e) {
@@ -55,7 +66,7 @@ class Category extends Component {
     }
 
     const items = pathname.split('/');
-    const category = items[items.length - 1];
+    const category = items[items.length - 2];
 
     return (
       <Segment>

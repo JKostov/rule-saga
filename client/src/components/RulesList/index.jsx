@@ -12,13 +12,10 @@ const RulesGrid = ({ rules, category, push }) => {
   return (
     <Grid stackable centered columns={3} className={style.wrapper}>
       {rules.map(rule => (
-        <Grid.Column key={rule.name} className={style.rule} onClick={() => push({
-          pathname: `/category/${category}/rule/${rule.name
-            .split(' ')
-            .map(word => word.toLowerCase())
-            .join('-')}`,
-          state: { rule }
-        })}
+        <Grid.Column
+          key={rule.name}
+          className={style.rule}
+          onClick={() => push(`/category/${category}/rule/${rule.name}`)}
         >
           {rule.name}
         </Grid.Column>

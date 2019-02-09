@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f3d5fd28-e2bd-4114-bd32-2cc5fa9da96e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/api/rule.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/api/rule.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/CategoriesGrid/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/CategoriesGrid/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/RulesList/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/RulesList/index.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/pages/Category/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Category/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/Rule/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Rule/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/routes/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/routes/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/thunks/rule.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/thunks/rule.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -128,9 +131,9 @@
           <entry key="env" value="1" />
           <entry key="example" value="1" />
           <entry key="jpg" value="2" />
-          <entry key="js" value="10" />
+          <entry key="js" value="12" />
           <entry key="json" value="1" />
-          <entry key="jsx" value="23" />
+          <entry key="jsx" value="25" />
           <entry key="scss" value="6" />
         </counts>
       </usages-collector>
@@ -138,8 +141,8 @@
         <counts>
           <entry key="Image" value="2" />
           <entry key="JSON" value="1" />
-          <entry key="JSX Harmony" value="23" />
-          <entry key="JavaScript" value="10" />
+          <entry key="JSX Harmony" value="25" />
+          <entry key="JavaScript" value="12" />
           <entry key="PLAIN_TEXT" value="2" />
           <entry key="SCSS" value="6" />
         </counts>
@@ -147,15 +150,15 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="env" value="41" />
-          <entry key="js" value="528" />
-          <entry key="jsx" value="3220" />
+          <entry key="js" value="556" />
+          <entry key="jsx" value="3853" />
           <entry key="scss" value="186" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JSX Harmony" value="3220" />
-          <entry key="JavaScript" value="528" />
+          <entry key="JSX Harmony" value="3853" />
+          <entry key="JavaScript" value="556" />
           <entry key="PLAIN_TEXT" value="41" />
           <entry key="SCSS" value="186" />
         </counts>
@@ -167,11 +170,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/pages/Category/index.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="483">
-              <caret line="30" column="25" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
+            <state relative-caret-position="606">
+              <caret line="82" column="13" lean-forward="true" selection-start-line="82" selection-start-column="13" selection-end-line="82" selection-end-column="13" />
               <folding>
                 <element signature="e#1#41#0" expanded="true" />
               </folding>
@@ -180,42 +183,42 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/pages/DashboardUser/index.jsx">
+        <entry file="file://$PROJECT_DIR$/client/src/thunks/auth.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="14" column="17" lean-forward="true" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+            <state relative-caret-position="459">
+              <caret line="28" column="1" lean-forward="true" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/pages/Category/style.scss">
+        <entry file="file://$PROJECT_DIR$/client/src/thunks/rule.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="1" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/pages/DashboardCompany/index.jsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="26" column="18" lean-forward="true" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="18" />
+            <state relative-caret-position="85">
+              <caret line="5" column="50" selection-start-line="5" selection-start-column="50" selection-end-line="5" selection-end-column="50" />
               <folding>
-                <element signature="e#1#50#0" expanded="true" />
+                <element signature="e#0#74#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/UserInvitation/index.jsx">
+        <entry file="file://$PROJECT_DIR$/client/src/routes/index.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="513">
-              <caret line="88" column="12" lean-forward="true" selection-start-line="81" selection-start-column="10" selection-end-line="88" selection-end-column="12" />
+            <state relative-caret-position="359">
+              <caret line="28" column="2" lean-forward="true" selection-start-line="28" selection-start-column="2" selection-end-line="28" selection-end-column="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/client/src/pages/Rule/index.jsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
               <folding>
-                <element signature="e#1#42#0" expanded="true" />
+                <element signature="e#1#41#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -224,8 +227,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/components/RulesList/index.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="65" selection-start-line="12" selection-start-column="65" selection-end-line="12" selection-end-column="65" />
+            <state relative-caret-position="102">
+              <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
               <folding>
                 <element signature="e#1#39#0" expanded="true" />
               </folding>
@@ -234,10 +237,13 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/components/RulesList/style.scss">
+        <entry file="file://$PROJECT_DIR$/client/src/components/Rule/index.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="25" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
+            <state relative-caret-position="51">
+              <caret line="3" selection-start-line="3" selection-end-line="3" />
+              <folding>
+                <element signature="e#1#27#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -245,8 +251,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/components/CategoriesGrid/index.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="8" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="8" />
+            <state relative-caret-position="289">
+              <caret line="17" column="107" selection-start-line="17" selection-start-column="107" selection-end-line="17" selection-end-column="107" />
+              <folding>
+                <element signature="e#1#39#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -259,8 +268,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/api/rule.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+            <state relative-caret-position="238">
+              <caret line="14" column="52" lean-forward="true" selection-start-line="14" selection-start-column="52" selection-end-line="14" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -345,18 +354,18 @@
         <option value="$PROJECT_DIR$/client/src/consts/actions.js" />
         <option value="$PROJECT_DIR$/client/src/reducers/rule.js" />
         <option value="$PROJECT_DIR$/client/src/reducers/index.js" />
-        <option value="$PROJECT_DIR$/client/src/thunks/rule.js" />
-        <option value="$PROJECT_DIR$/client/src/routes/index.jsx" />
         <option value="$PROJECT_DIR$/client/src/components/UsersList/index.jsx" />
         <option value="$PROJECT_DIR$/client/src/components/Rule/index.jsx" />
-        <option value="$PROJECT_DIR$/client/src/pages/Rule/index.jsx" />
         <option value="$PROJECT_DIR$/client/src/pages/Category/style.scss" />
-        <option value="$PROJECT_DIR$/client/src/components/RulesList/index.jsx" />
         <option value="$PROJECT_DIR$/client/src/components/RulesList/style.scss" />
         <option value="$PROJECT_DIR$/client/src/pages/DashboardUser/index.jsx" />
+        <option value="$PROJECT_DIR$/client/src/components/RulesList/index.jsx" />
+        <option value="$PROJECT_DIR$/client/src/routes/index.jsx" />
         <option value="$PROJECT_DIR$/client/src/components/CategoriesGrid/index.jsx" />
+        <option value="$PROJECT_DIR$/client/src/thunks/rule.js" />
         <option value="$PROJECT_DIR$/client/src/api/rule.js" />
         <option value="$PROJECT_DIR$/client/src/pages/Category/index.jsx" />
+        <option value="$PROJECT_DIR$/client/src/pages/Rule/index.jsx" />
       </list>
     </option>
   </component>
@@ -635,7 +644,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60858000" />
+    <option name="totallyTimeSpent" value="62257000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="59" y="105" width="1707" height="1015" extended-state="0" />
@@ -877,13 +886,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/thunks/auth.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="11" selection-start-line="11" selection-end-line="28" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/reducers/auth.js">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -918,27 +920,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/thunks/rule.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
-          <folding>
-            <element signature="e#0#74#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/CategoriesGrid/style.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/routes/index.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="22" column="26" lean-forward="true" selection-start-line="22" selection-start-column="26" selection-end-line="22" selection-end-column="26" />
         </state>
       </provider>
     </entry>
@@ -956,16 +941,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/Rule/index.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-          <folding>
-            <element signature="e#1#27#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/UsersList/index.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -973,30 +948,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/pages/Rule/index.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
-          <folding>
-            <element signature="e#1#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/pages/Category/style.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="1" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/RulesList/index.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="65" selection-start-line="12" selection-start-column="65" selection-end-line="12" selection-end-column="65" />
-          <folding>
-            <element signature="e#1#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1010,31 +965,14 @@
     <entry file="file://$PROJECT_DIR$/client/src/pages/DashboardUser/index.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
-          <caret line="14" column="17" lean-forward="true" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/api/auth.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/api/rule.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/components/CategoriesGrid/index.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="8" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="8" />
+          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/components/UserInvitation/index.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="513">
-          <caret line="88" column="12" lean-forward="true" selection-start-line="81" selection-start-column="10" selection-end-line="88" selection-end-column="12" />
+          <caret line="88" column="12" selection-start-line="81" selection-start-column="10" selection-end-line="88" selection-end-column="12" />
           <folding>
             <element signature="e#1#42#0" expanded="true" />
           </folding>
@@ -1044,17 +982,91 @@
     <entry file="file://$PROJECT_DIR$/client/src/pages/DashboardCompany/index.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
-          <caret line="26" column="18" lean-forward="true" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="18" />
+          <caret line="26" column="18" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="18" />
           <folding>
             <element signature="e#1#50#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/CategoriesGrid/index.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="107" selection-start-line="17" selection-start-column="107" selection-end-line="17" selection-end-column="107" />
+          <folding>
+            <element signature="e#1#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/thunks/auth.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="28" column="1" lean-forward="true" selection-start-line="28" selection-start-column="1" selection-end-line="28" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/thunks/rule.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="50" selection-start-line="5" selection-start-column="50" selection-end-line="5" selection-end-column="50" />
+          <folding>
+            <element signature="e#0#74#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/api/auth.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/api/rule.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="52" lean-forward="true" selection-start-line="14" selection-start-column="52" selection-end-line="14" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/pages/Category/index.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="30" column="25" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
+        <state relative-caret-position="606">
+          <caret line="82" column="13" lean-forward="true" selection-start-line="82" selection-start-column="13" selection-end-line="82" selection-end-column="13" />
+          <folding>
+            <element signature="e#1#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/RulesList/index.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+          <folding>
+            <element signature="e#1#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/components/Rule/index.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+          <folding>
+            <element signature="e#1#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/routes/index.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="28" column="2" lean-forward="true" selection-start-line="28" selection-start-column="2" selection-end-line="28" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/pages/Rule/index.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
           <folding>
             <element signature="e#1#41#0" expanded="true" />
           </folding>
