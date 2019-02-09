@@ -9,3 +9,6 @@ export const SET_BREADCRUMB_ACTION = '@breadcrumb/set';
 
 // companyInvitation
 export const GET_COMPANY_INVITATION_ACTION = '@companyInvitation/getCompanyInvitation';
+
+// rule
+export const GET_RULES_BY_CATEGORY_ACTION = '@rule/getRulesByCategory';

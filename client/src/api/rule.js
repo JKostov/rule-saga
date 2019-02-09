@@ -11,3 +11,7 @@ export function addRule(payload) {
 
   return axios.post('/rule', data);
 }
+
+export function getRulesByCategory(category) {
+  return axios.get(`/rule/${category}`)
+}
