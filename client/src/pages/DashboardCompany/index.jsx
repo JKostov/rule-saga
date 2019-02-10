@@ -37,7 +37,7 @@ class DashboardCompany extends Component {
   }
 
   render() {
-    const { company, history: { push } } = this.props;
+    const { company, history: { push }, user } = this.props;
     const { newCategory } = this.state;
     if (!company) {
       return null;
@@ -53,6 +53,7 @@ class DashboardCompany extends Component {
             handleAddNewCategory={this.handleAddNewCategory}
             newCategory={newCategory}
             push={push}
+            user={user}
             categories={categories}
           />
         </Segment>
@@ -77,6 +78,7 @@ DashboardCompany.propTypes = {
 
 const mapStateToProps = ({ auth }) => ({
   company: auth.get('company'),
+  user: auth.get('user'),
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(
