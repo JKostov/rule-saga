@@ -81,7 +81,7 @@ class Category extends Component {
         <Button onClick={this.filterByTags} content="Filter by tags"/>
         {user === null &&
           <Button
-            onClick={() => push(`/category/${category}/rule/new`)}
+            onClick={() => push(`/category/${category}/new-rule`)}
             className={style.floatRight}
             content="Add new rule"
           />

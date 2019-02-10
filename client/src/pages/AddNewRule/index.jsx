@@ -8,7 +8,7 @@ import RuleForm from "../../components/RuleForms/RuleForm";
 
 const AddNewRule = ({ history: { push }, companyId, location: { pathname } }) => {
   const pathStrings = pathname.split('/');
-  const category = pathStrings[pathStrings.length - 3];
+  const category = pathStrings[pathStrings.length - 2];
   return (
     <Segment>
       <RuleForm category={category} push={push} companyId={companyId}/>
