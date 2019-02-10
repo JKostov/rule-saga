@@ -9,42 +9,44 @@ import Rule from '../../components/Rule';
 import { getRule } from "../../thunks/rule";
 
 class RulePage extends Component {
+  componentDidMount() {
+    const { location: { pathname }, getRuleAction } = this.props;
+    const pathStrings = pathname.split('/');
+    const ruleId = pathStrings[pathStrings.length - 1];
 
-    constructor(props) {
-        super(props);
-
-        this.state = { loading: true };
-    }
-
-    componentDidMount() {
-        const { location: { pathname, search }, getRuleAction } = this.props;
-        const pathStrings = pathname.split('/');
-        const ruleId = pathStrings[pathStrings.length - 1];
-        console.log(ruleId);
-
-        getRuleAction(ruleId);
-    }
+    getRuleAction(ruleId);
+  }
   render() {
-      console.log('rule page');
-    const { rule, history: { push } } = this.props;
+    const { rule } = this.props;
+    if (!rule ) {
+      return null;
+    }
+
+    const { location: { pathname }, history: { push } } = this.props;
+    const pathStrings = pathname.split('/');
+    const category = pathStrings[pathStrings.length - 3];
 
     return (
       <Segment>
-        <Rule rule={rule}>rule</Rule>
+        <Rule push={push} category={category} rule={rule}>rule</Rule>
       </Segment>
     );
   }
 }
 
+RulePage.defaultProps = {
+  rule: null,
+};
+
 RulePage.propTypes = {
-    rule: PropTypes.shape({}).isRequired,
+  rule: PropTypes.shape({}),
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators(
-    {
-        getRuleAction: getRule,
-    },
-    dispatch,
+  {
+      getRuleAction: getRule,
+  },
+  dispatch,
 );
 
 const mapStateToProps = ({ rule }) => ({

@@ -29,4 +29,8 @@
     margin-bottom: 20px !important;
     width: 50% !important;
   }
+
+  .textArea:disabled {
+    color:gray;
+  }
 }

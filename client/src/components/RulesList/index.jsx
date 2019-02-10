@@ -10,7 +10,7 @@ const RulesGrid = ({ rules, category, push }) => {
   }
 
   return (
-    <Grid stackable centered columns={3} className={style.wrapper}>
+    <Grid stackable columns={3} className={style.wrapper}>
       {rules.map(rule => (
         <Grid.Column
           key={rule.name}

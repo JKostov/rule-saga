@@ -6,7 +6,7 @@ import styles from './style.scss';
 const Enumeration = ({ content }) => (
     <div className={styles.container}>
         <ul>
-            {content.map(en => <li className={styles.text}>{en}</li>)}
+            {content.map((en, i) => <li key={i} className={styles.text}>{en}</li>)}
         </ul>
     </div>
 );

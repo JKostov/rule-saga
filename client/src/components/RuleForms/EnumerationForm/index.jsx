@@ -74,7 +74,6 @@ class EnumerationForm extends Component {
       data: { content }, validationError, finished,
     } = this.state;
 
-    console.log(validationError);
     return (
       <div className={style.wrapper}>
         <div>Enumerations</div>

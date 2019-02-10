@@ -4,32 +4,41 @@ import PropTypes from 'prop-types';
 import Enumeration from './Enumeration';
 import Text from './Text';
 import Image from './Image';
-import styles from './style.scss';
+import style from './style.scss';
 
-const Rule = ({ rule }) => {
-  if (!rule) {
-    return <div>No data</div>;
-  }
-
-  const { name, category, tags, data } = rule;
+const Rule = ({ rule: { name, category, tags, data }, push }) => {
   return (
     <div>
-        <h1>{category} - {name}</h1>
-        <div>{tags.map(tag => `#${tag} `)}</div>
-        <div className={styles.mt5}>
-            {data.map(({ type, content }) => {
-                switch(type) {
-                    case 'enumeration': return (<Enumeration content={content}/>);
-                    case 'image': return (<Image content={content}/>);
-                    case 'text': return (<Text content={content}/>);
+      <h1>{category} - {name}</h1>
+      <div>
+        {
+          tags.map(tag =>
+            <div
+              className={style.tag}
+              key={tag}
+              onClick={() => {
+                if (category) {
+                  push(`/category/${category}/rules?tags[]=${tag}`)
                 }
-            })}
-        </div>
+              }}>#{tag}
+          </div>)
+        }
+      </div>
+      <div className={style.mt5}>
+        {data.map(({ type, content }, i) => {
+          switch(type) {
+            case 'enumeration': return (<Enumeration key={i} content={content}/>);
+            case 'image': return (<Image key={i} content={content}/>);
+            case 'text': return (<Text key={i} content={content}/>);
+          }
+        })}
+      </div>
     </div>
   );
 };
 
 Rule.propTypes = {
+  category: PropTypes.string,
   rule: PropTypes.shape({}),
 };
 

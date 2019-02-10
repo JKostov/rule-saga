@@ -80,7 +80,7 @@ class RuleForm extends Component {
   }
 
   addRule() {
-    const { addRuleAction, companyId } = this.props;
+    const { companyId, push } = this.props;
     const { name, category, tags: tagsMerged } = this.state;
     const { data } = this.dataRef.current.state;
 
@@ -100,6 +100,7 @@ class RuleForm extends Component {
     addRule(payload)
       .then(() => {
         this.setState({ loading: false });
+        push('/dashboard-company');
       })
       .catch((e) => {
         this.setState({
@@ -173,8 +174,8 @@ class RuleForm extends Component {
 }
 
 RuleForm.propTypes = {
+  push: PropTypes.func.isRequired,
   companyId: PropTypes.string.isRequired,
-  addRuleAction: PropTypes.func,
 };
 
 export default RuleForm;

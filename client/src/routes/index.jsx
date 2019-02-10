@@ -17,7 +17,7 @@ const CompanyRoutes = () => (
     <Route path="/dashboard-company" component={dynamicImport(() => import('../pages/DashboardCompany'))} />
     <Route path="/category/:category/rules" exact component={dynamicImport(() => import('../pages/Category'))} />
     <Route path="/category/:category/rule/:rule" exact component={dynamicImport(() => import('../pages/Rule'))} />
-    {/*<Route path="/category/:category/rule/new" exact component={dynamicImport(() => import('../components/RuleForms/DataForm'))} />*/}
+    <Route path="/category/:category/rule/new" exact component={dynamicImport(() => import('../pages/AddNewRule'))} />
   </Fragment>
 );
 

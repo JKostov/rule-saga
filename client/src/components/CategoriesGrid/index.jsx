@@ -13,7 +13,7 @@ const CategoriesGrid = ({ categories, push }) => {
   return (
     <Fragment>
     <SubHeader header="Categories" />
-      <Grid stackable centered columns={3}>
+      <Grid stackable columns={3}>
       {categories.map(category => (
         <Grid.Column key={category} className={style.rule} onClick={() => push(`/category/${category}/rules`)}
         >
