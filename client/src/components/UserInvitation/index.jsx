@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Form, Input, Button, Grid,
+  Form, Input, Button,
 } from 'semantic-ui-react';
 import Joi from 'joi-browser';
 import { Alert } from '../elements';

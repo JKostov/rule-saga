@@ -11,8 +11,8 @@ const UsersList = ({ users }) => {
   return (
     <Grid stackable centered columns={1}>
       {
-        users.map(user => {
-          return <Grid.Column key={user.name}>{user.name} {user.lastname}</Grid.Column>
+        users.map((user, i) => {
+          return <Grid.Column key={i}>{user.name} {user.lastname}</Grid.Column>
         })
       }
     </Grid>

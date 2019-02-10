@@ -6,11 +6,15 @@ import { connect } from 'react-redux';
 import { Segment } from '../../components/elements';
 import RuleForm from "../../components/RuleForms/RuleForm";
 
-const AddNewRule = ({ history: { push }, companyId }) => (
-  <Segment>
-    <RuleForm push={push} companyId={companyId}/>
-  </Segment>
-);
+const AddNewRule = ({ history: { push }, companyId, location: { pathname } }) => {
+  const pathStrings = pathname.split('/');
+  const category = pathStrings[pathStrings.length - 3];
+  return (
+    <Segment>
+      <RuleForm category={category} push={push} companyId={companyId}/>
+    </Segment>
+  );
+};
 
 AddNewRule.propTypes = {
   companyId: PropTypes.string.isRequired,

@@ -17,7 +17,6 @@ class RuleForm extends Component {
 
     this.state = {
       name: '',
-      category: '',
       tags: '',
       validationError: null,
       loading: false,
@@ -25,7 +24,6 @@ class RuleForm extends Component {
 
     this.dataRef = React.createRef();
     this.handleNameChange = this.handleNameChange.bind(this);
-    this.handleCategoryChange = this.handleCategoryChange.bind(this);
     this.handleTagsChange = this.handleTagsChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.addRule = this.addRule.bind(this);
@@ -36,29 +34,22 @@ class RuleForm extends Component {
     this.setState({ name: e.target.value });
   }
 
-  handleCategoryChange(e) {
-    this.setState({ category: e.target.value });
-  }
-
   handleTagsChange(e) {
     this.setState({ tags: e.target.value });
   }
 
   validateForm() {
-    const { name, category, tags } = this.state;
+    const { name, tags } = this.state;
     const schema = Joi.object().keys({
       name: Joi.string()
         .required()
         .error(new Error('name is required.')),
-      category: Joi.string()
-        .required()
-        .error(new Error('Category is required.')),
       tags: Joi.string()
         .required()
         .error(new Error('Tags is required.')),
     });
 
-    const result = Joi.validate({ name, category, tags }, schema);
+    const result = Joi.validate({ name, tags }, schema);
     const { completed } = this.dataRef.current.state;
     let error = '';
 
@@ -80,8 +71,8 @@ class RuleForm extends Component {
   }
 
   addRule() {
-    const { companyId, push } = this.props;
-    const { name, category, tags: tagsMerged } = this.state;
+    const { companyId, push, category } = this.props;
+    const { name, tags: tagsMerged } = this.state;
     const { data } = this.dataRef.current.state;
 
     const tags = tagsMerged
@@ -118,8 +109,9 @@ class RuleForm extends Component {
 
   render() {
     const {
-      name, category, tags, validationError, loading,
+      name, tags, validationError, loading,
     } = this.state;
+    const { category } = this.props;
 
     return (
       <Form
@@ -130,6 +122,16 @@ class RuleForm extends Component {
       >
         <Alert className={style.errorMessage} message={validationError} />
         <Form.Field>
+          <Label className={style.label}>Category</Label>
+          <Input
+            type="text"
+            name="category"
+            disabled={true}
+            placeholder="Category"
+            value={category}
+          />
+        </Form.Field>
+        <Form.Field>
           <Label className={style.label}>Name</Label>
           <Input
             type="text"
@@ -137,16 +139,6 @@ class RuleForm extends Component {
             placeholder="Name"
             value={name}
             onChange={this.handleNameChange}
-          />
-        </Form.Field>
-        <Form.Field>
-          <Label className={style.label}>Category</Label>
-          <Input
-            type="text"
-            name="category"
-            placeholder="Category"
-            value={category}
-            onChange={this.handleCategoryChange}
           />
         </Form.Field>
         <Form.Field>
@@ -176,6 +168,7 @@ class RuleForm extends Component {
 RuleForm.propTypes = {
   push: PropTypes.func.isRequired,
   companyId: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
 };
 
 export default RuleForm;
