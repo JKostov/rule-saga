@@ -17,7 +17,7 @@ export function getRulesByCategory({ category, tags}) {
     return axios.get(`/rule/${category}/rules`)
   }
 
-  return axios.get(`/rule/${category}?tags[]=${tags}`);
+  return axios.get(`/rule/${category}/rules?tags[]=${tags}`);
 }
 
 export function getRule(ruleId) {
